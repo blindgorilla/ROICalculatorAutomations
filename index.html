@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROI Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e9f7e9;
+      border: 1px solid #d4edda;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ROI Calculator</h1>
+    <label for="employees">Number of Employees Performing the Task:</label>
+    <input type="number" id="employees" placeholder="Enter number of employees">
+
+    <label for="hours">Hours Spent Per Day on Task:</label>
+    <input type="number" id="hours" placeholder="Enter hours per day">
+
+    <label for="days">Number of Working Days Per Month:</label>
+    <input type="number" id="days" placeholder="Enter working days per month">
+
+    <label for="rate">Average Hourly Rate of Employees (USD):</label>
+    <input type="number" id="rate" placeholder="Enter hourly rate">
+
+    <label for="timeSaved">Estimated Time Saved by Automation (%):</label>
+    <input type="number" id="timeSaved" placeholder="Enter time saved percentage">
+
+    <label for="automationCost">Cost of Automation Tool/Service Per Month (USD):</label>
+    <input type="number" id="automationCost" placeholder="Enter cost of automation">
+
+    <button onclick="calculateROI()">Calculate ROI</button>
+
+    <div class="result" id="result">
+      Enter values above and click "Calculate ROI" to see the results.
+    </div>
+  </div>
+
+  <script>
+    function calculateROI() {
+      const employees = parseFloat(document.getElementById('employees').value) || 0;
+      const hours = parseFloat(document.getElementById('hours').value) || 0;
+      const days = parseFloat(document.getElementById('days').value) || 0;
+      const rate = parseFloat(document.getElementById('rate').value) || 0;
+      const timeSaved = parseFloat(document.getElementById('timeSaved').value) || 0;
+      const automationCost = parseFloat(document.getElementById('automationCost').value) || 0;
+
+      const totalManualCost = employees * hours * days * rate;
+      const savings = totalManualCost * (timeSaved / 100);
+      const netSavings = savings - automationCost;
+      const roi = (savings / automationCost) * 100;
+
+      document.getElementById('result').innerHTML = `
+        <p><strong>Total Monthly Cost of Manual Work:</strong> $${totalManualCost.toFixed(2)}</p>
+        <p><strong>Estimated Monthly Savings Through Automation:</strong> $${savings.toFixed(2)}</p>
+        <p><strong>Net Savings After Automation Costs:</strong> $${netSavings.toFixed(2)}</p>
+        <p><strong>ROI Percentage:</strong> ${roi.toFixed(2)}%</p>
+      `;
+    }
+  </script>
+</body>
+</html>
